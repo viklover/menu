@@ -3,15 +3,19 @@
     <Menu>
         <ExitKey>0</ExitKey>
         <MenuItem>
-            <key>1</key>
-            <title type="string">Start</title>
+            <key>10</key>
+            <title>Start</title>
         </MenuItem>
         <MenuItem>
-            <key>2</key>
+            <key>20</key>
             <title>Options</title>
         </MenuItem>
         <MenuItem>
-            <key>3</key>
+            <key>20</key>
+            <title>Opta</title>
+        </MenuItem>
+        <MenuItem>
+            <key>30</key>
             <title>Exit</title>
         </MenuItem>
     </Menu>

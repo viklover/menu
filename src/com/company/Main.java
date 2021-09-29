@@ -1,38 +1,62 @@
 package com.company;
 
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+
 import java.io.File;
-import java.util.Scanner;
-import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.lang.String;
 
+import java.util.LinkedList;
+
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 public class Main {
-    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, Exception {
 
-        // HELLO 1
+    public static int exit_key;
 
-        // PARSE XML FILE
-        File file = new File("document.xml");
+    public static void main(String[] args) throws Exception {
+
+        Document document = getDocumentXML("document.xml");
+        LinkedList<MenuItem> items = getMenuItemsFromDocument(document);
+
+        // CREATE MENU OBJECT
+        Menu menu = new Menu(items);
+        MenuItem choice;
+
+        menu.setExitKey(exit_key);
+
+        do {
+            choice = menu.getChoice();
+            if (choice != null) {
+                System.out.println("Вы выбрали пункт " + choice.getTitle());
+            }
+        }
+        while(choice != null);
+    }
+
+    public static Document getDocumentXML(String filename) throws ParserConfigurationException, IOException, SAXException {
+        File file = new File(filename);
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
         Document document = documentBuilder.parse(file);
+        return document;
+    }
 
+    public static LinkedList<MenuItem> getMenuItemsFromDocument(Document document)
+    {
         // GET MENU ITEMS CONTENT
         NodeList elements = document.getElementsByTagName("MenuItem");
 
-        int exit_key = Integer.parseInt(document.getElementsByTagName("ExitKey").item(0).getTextContent());
+        exit_key = Integer.parseInt(document.getElementsByTagName("ExitKey").item(0).getTextContent());
 
         int length = elements.getLength();
 
-        MenuItem[] items = new MenuItem[length];
+        LinkedList<MenuItem> items = new LinkedList<MenuItem>();
 
         for (int i = 0; i < length; ++i)
         {
@@ -44,27 +68,20 @@ public class Main {
             boolean check = true;
 
             // CHECK KEY
-            for (int j = 0; j < i && check; ++j)
+            for(MenuItem item : items)
             {
-                if ((items[j].getKeyOp() == key || items[j].getKeyOp() == exit_key)) {
+                if (item.getKeyOp() == key || item.getKeyOp() == exit_key) {
                     check = false;
+                    break;
                 }
             }
 
             if (check) {
-                items[i] = new MenuItem(title, key);
+                items.add(new MenuItem(title, key));
             }
         }
 
-        // CREATE MENU OBJECT
-        Menu menu = new Menu(items);
-        MenuItem choice;
-
-        do {
-            menu.printItems();
-            choice = menu.getChoice();
-            System.out.println("Вы выбрали пункт " + choice.getTitle());
-        }
-        while(choice.getKeyOp() != exit_key);
+        return items;
     }
+
 }

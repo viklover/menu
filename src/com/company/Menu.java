@@ -1,29 +1,31 @@
 package com.company;
 
+import java.util.LinkedList;
 import java.util.Scanner;
+import java.lang.Exception;
+import java.lang.Exception;
 
 public class Menu {
 
-    private MenuItem[] items;
+    private LinkedList<MenuItem> items;
     private Scanner scan;
 
-    public Menu(MenuItem[] items) {
+    private int exit_key;
 
+    public Menu(LinkedList<MenuItem> items) {
         this.items = items;
-
-//        this.items = new MenuItem[lenght];
-//        for (int i = 0; i < lenght; i++) {
-//            this.items[i] = items[i];
-//        }
-
         this.scan = new Scanner(System.in);
+    }
+
+    public void setExitKey(int key) {
+        this.exit_key = key;
     }
 
     public void printItems() {
         String output = "  Menu: \n";
 
-        for (int i = 0; i < this.items.length; ++i) {
-            output += "    " + this.items[i].getKeyOp() + ": " + this.items[i].getTitle() + "\n";
+        for(MenuItem item : items) {
+            output += "    " + item.getKeyOp() + ": " + item.getTitle() + "\n";
         }
 
         output += "\\> ";
@@ -31,8 +33,30 @@ public class Menu {
         System.out.print(output);
     }
 
-    public MenuItem getChoice() {
-        return this.items[this.scan.nextInt()];
-    }
+    public MenuItem getChoice()
+    {
+        this.printItems();
 
+        while (true)
+        {
+            try {
+                int in = this.scan.nextInt();
+
+                if (in == this.exit_key) {
+                    return null;
+                }
+
+                for(MenuItem item : items) {
+                    if (item.getKeyOp() == in) {
+                        return item;
+                    }
+                }
+
+                this.printItems();
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+
+            }
+        }
+    }
 }
