@@ -17,6 +17,8 @@ import org.w3c.dom.Document;
 public class Main {
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, Exception {
 
+        // HELLO
+
         // PARSE XML FILE
         File file = new File("document.xml");
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
