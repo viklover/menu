@@ -1,0 +1,19 @@
+<xml version="1.0" encoding="UTF-8">
+
+    <Menu>
+        <ExitKey>0</ExitKey>
+        <MenuItem>
+            <key>1</key>
+            <title type="string">Start</title>
+        </MenuItem>
+        <MenuItem>
+            <key>2</key>
+            <title>Options</title>
+        </MenuItem>
+        <MenuItem>
+            <key>3</key>
+            <title>Exit</title>
+        </MenuItem>
+    </Menu>
+
+</xml>
