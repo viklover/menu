@@ -10,7 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.lang.String;
 
-import java.util.LinkedList;
+import java.util.*;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -49,14 +49,16 @@ public class Main {
 
     public static LinkedList<MenuItem> getMenuItemsFromDocument(Document document)
     {
-        // GET MENU ITEMS CONTENT
-        NodeList elements = document.getElementsByTagName("MenuItem");
+        NodeList elements = document.getElementsByTagName("Item");
 
         exit_key = Integer.parseInt(document.getElementsByTagName("ExitKey").item(0).getTextContent());
 
         int length = elements.getLength();
 
         LinkedList<MenuItem> items = new LinkedList<MenuItem>();
+
+        HashSet<Integer> keys = new HashSet<Integer>();
+        keys.add(exit_key);
 
         for (int i = 0; i < length; ++i)
         {
@@ -65,23 +67,12 @@ public class Main {
             String title = elem.getElementsByTagName("title").item(0).getTextContent();
             int key = Integer.parseInt(elem.getElementsByTagName("key").item(0).getTextContent());
 
-            boolean check = true;
-
-            // CHECK KEY
-            for(MenuItem item : items)
-            {
-                if (item.getKeyOp() == key || item.getKeyOp() == exit_key) {
-                    check = false;
-                    break;
-                }
-            }
-
-            if (check) {
+            if (!keys.contains(key)) {
                 items.add(new MenuItem(title, key));
+                keys.add(key);
             }
         }
 
         return items;
     }
-
 }

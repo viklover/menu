@@ -2,22 +2,22 @@
 
     <Menu>
         <ExitKey>0</ExitKey>
-        <MenuItem>
+        <Item>
             <key>10</key>
             <title>Start</title>
-        </MenuItem>
-        <MenuItem>
+        </Item>
+        <Item>
             <key>20</key>
             <title>Options</title>
-        </MenuItem>
-        <MenuItem>
+        </Item>
+        <Item>
             <key>20</key>
             <title>Hi</title>
-        </MenuItem>
-        <MenuItem>
+        </Item>
+        <Item>
             <key>30</key>
             <title>Exit</title>
-        </MenuItem>
+        </Item>
     </Menu>
 
 </xml>
