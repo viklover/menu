@@ -3,7 +3,6 @@ package com.company;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.lang.Exception;
-import java.lang.Exception;
 
 public class Menu {
 
@@ -54,7 +53,7 @@ public class Menu {
 
                 this.printItems();
 
-            } catch (ArrayIndexOutOfBoundsException e) {
+            } catch (Exception e) {
 
             }
         }
